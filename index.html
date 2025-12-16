@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TubeThumb PRO - Master Version</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Montserrat:wght@700;900&family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #111827;
+            color: #f3f4f6;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+        /* Utility for hiding scrollbar but allowing scroll */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .canvas-container {
+            background-image: 
+                linear-gradient(45deg, #1f2937 25%, transparent 25%), 
+                linear-gradient(-45deg, #1f2937 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #1f2937 75%), 
+                linear-gradient(-45deg, transparent 75%, #1f2937 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        /* Removed the restrictive Range Slider CSS so they work natively now */
+    </style>
+</head>
+<body class="selection:bg-red-500/30 pb-20">
+
+    <header class="border-b border-gray-800 bg-gray-900/90 backdrop-blur-md sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-gradient-to-br from-red-600 to-orange-600 p-2 rounded-lg shadow-lg shadow-red-900/20">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h1 class="text-xl font-black tracking-tight italic">TubeThumb <span class="text-red-500">PRO</span></h1>
+            </div>
+            <button id="btnMagicRemix" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-1.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-indigo-500/30 border border-indigo-400/30">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                Magic Remix
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <div class="lg:col-span-4 space-y-5 h-full">
+            
+            <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-800 shadow-sm backdrop-blur-sm">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                    Image & Filters
+                </h2>
+                <label class="flex flex-col items-center justify-center w-full h-20 border border-gray-700 border-dashed rounded-lg cursor-pointer hover:bg-gray-800 hover:border-red-500 transition-all group relative overflow-hidden bg-gray-950 mb-4">
+                    <img id="previewThumb" class="absolute inset-0 w-full h-full object-cover opacity-30 hidden" />
+                    <div class="flex flex-col items-center justify-center z-10">
+                        <p id="uploadText" class="text-xs font-bold text-gray-300 group-hover:text-white transition-colors">Change Image</p>
+                    </div>
+                    <input type="file" id="imageInput" class="hidden" accept="image/*" />
+                </label>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="text-center">
+                        <label class="text-[9px] text-gray-500 uppercase font-bold block mb-1">Brightness</label>
+                        <input type="range" id="filterBrightness" min="50" max="150" value="100" class="w-full h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-white">
+                    </div>
+                    <div class="text-center">
+                        <label class="text-[9px] text-gray-500 uppercase font-bold block mb-1">Contrast</label>
+                        <input type="range" id="filterContrast" min="50" max="150" value="100" class="w-full h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-white">
+                    </div>
+                    <div class="text-center">
+                        <label class="text-[9px] text-gray-500 uppercase font-bold block mb-1">Saturation</label>
+                        <input type="range" id="filterSaturate" min="0" max="200" value="100" class="w-full h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-white">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-800 shadow-sm backdrop-blur-sm">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                    Text Content
+                </h2>
+                <textarea id="textContent" class="w-full h-16 bg-gray-950 border border-gray-700 rounded-md px-3 py-2 text-base font-bold text-white focus:border-red-500 focus:outline-none resize-none" placeholder="YOUR TEXT HERE">WATCH THIS!</textarea>
+            </div>
+
+            <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-800 shadow-sm backdrop-blur-sm">
+                 <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    Stickers & Shapes
+                </h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="shapeButtons">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div class="grid grid-cols-6 gap-2" id="emojiButtons">
+                            </div>
+                    </div>
+
+                    <div id="stickerControls" class="pt-4 border-t border-gray-800 hidden">
+                        <div class="flex justify-between items-center mb-3">
+                             <span class="text-xs font-bold text-blue-400 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>
+                                Selected Item
+                             </span>
+                             <div class="flex gap-2">
+                                 <button id="btnFlipSticker" class="bg-gray-700 hover:bg-gray-600 text-white p-1 rounded text-[10px] px-2 font-bold transition-colors" title="Flip Horizontally">
+                                     FLIP ↔
+                                 </button>
+                                 <button id="btnDeleteSticker" class="text-red-400 hover:text-red-300 p-1">
+                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                 </button>
+                             </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] text-gray-500 uppercase font-bold">Size</label>
+                                <input type="range" id="stickerScale" min="0.2" max="3" step="0.1" value="1" class="w-full h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-blue-500 mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500 uppercase font-bold">Rotate</label>
+                                <input type="range" id="stickerRotation" min="-180" max="180" value="0" class="w-full h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-blue-500 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="noStickerSelected" class="text-xs text-gray-600 italic text-center py-2 border-t border-gray-800">
+                        Select an item to Resize, Rotate or Flip
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-800 shadow-sm backdrop-blur-sm">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.343L14.657 8l-1.657 1.343L11 7.343z" /></svg>
+                    Typography
+                </h2>
+
+                <div class="space-y-4">
+                   <div class="grid grid-cols-2 gap-2" id="fontButtons"></div>
+                   <div class="flex justify-between items-center bg-gray-950 p-2 rounded-lg border border-gray-700">
+                        <div class="flex gap-2" id="colorButtons"></div>
+                        <input type="color" id="colorPicker" value="#FFFFFF" class="w-8 h-8 rounded bg-transparent border-0 p-0 cursor-pointer">
+                   </div>
+                   <div class="space-y-3 pt-2">
+                       <div class="flex items-center gap-3">
+                            <span class="text-xs text-gray-500 w-12">Size</span>
+                            <input type="range" id="fontSize" min="40" max="250" value="140" class="flex-1 h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-white"/>
+                       </div>
+                       <div class="flex items-center gap-3">
+                            <span class="text-xs text-gray-500 w-12">Stroke</span>
+                            <input type="range" id="strokeWidth" min="0" max="40" value="15" class="flex-1 h-1.5 bg-gray-700 rounded-lg cursor-pointer accent-red-500"/>
+                       </div>
+                   </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-800 shadow-sm backdrop-blur-sm">
+                 <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                        Smart Layout
+                    </h2>
+                    <button id="btnSafeZone" class="text-[10px] px-2 py-0.5 rounded border bg-red-900/30 text-red-300 border-red-800">
+                        Safe Zone ON
+                    </button>
+                 </div>
+                 <div class="grid grid-cols-3 gap-1.5 aspect-[3/1.5]" id="layoutGrid"></div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8">
+            <div class="sticky top-28 space-y-6">
+                
+                <div class="flex flex-col items-center gap-4 w-full">
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl border border-gray-700 bg-gray-900 canvas-container group">
+                        <canvas id="mainCanvas" class="w-full h-full object-contain cursor-crosshair touch-none"></canvas>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 px-2 py-1 rounded text-xs text-white pointer-events-none">
+                            Drag items to move
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-2">
+                        <button id="btnDownload" class="flex items-center gap-2 px-8 py-3 rounded-full font-bold text-lg transition-all transform hover:scale-105 bg-gray-700 text-gray-500 cursor-not-allowed" disabled>
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4 4m4-4v12" /></svg>
+                            Download Thumbnail
+                        </button>
+                        <div id="downloadStatus" class="flex items-center gap-1.5 text-green-400 text-sm hidden">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span id="statusText"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
+                        <h3 class="text-red-400 font-bold text-sm mb-1">🔥 Viral Tip #1</h3>
+                        <p class="text-gray-400 text-xs">High brightness & contrast gets 30% more clicks.</p>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
+                        <h3 class="text-blue-400 font-bold text-sm mb-1">📏 Rule of Thirds</h3>
+                        <p class="text-gray-400 text-xs">Keep text away from the bottom-right corner.</p>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg border border-gray-800">
+                        <h3 class="text-green-400 font-bold text-sm mb-1">⚡ Flip Arrows</h3>
+                        <p class="text-gray-400 text-xs">Use the FLIP button to point arrows exactly where you want.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+    const FONTS = [{ name: 'Impact Style', value: 'Anton' }, { name: 'Viral Bold', value: 'Montserrat' }, { name: 'Modern', value: 'Oswald' }, { name: 'Comic', value: 'Bangers' }];
+    const COLORS = ['#FFFFFF', '#FFFF00', '#FF0000', '#00FF00', '#00FFFF', '#FF00FF'];
+    const EMOJIS = ['😱', '🤔', '🔥', '💰', '🚀', '⚠️', '✅', '❌', '🤡', '😭', '🤯', '💎'];
+
+    const ARROW_CURVED = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><path d='M20,150 Q50,50 150,50 L130,20 L180,50 L130,80 L150,50' fill='red' stroke='white' stroke-width='8' stroke-linejoin='round' /></svg>`;
+    const ARROW_STRAIGHT = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><path d='M20,100 L120,100 L120,70 L180,110 L120,150 L120,120 L20,120 Z' fill='red' stroke='white' stroke-width='8' stroke-linejoin='round' /></svg>`;
+    const ARROW_POINTER = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><path d='M80,180 L80,100 L50,130 L100,20 L150,130 L120,100 L120,180 Z' fill='red' stroke='white' stroke-width='8' stroke-linejoin='round' /></svg>`;
+    const SHAPE_CIRCLE = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><circle cx='100' cy='100' r='80' fill='none' stroke='red' stroke-width='12' stroke-dasharray='20,10' /></svg>`;
+    const SHAPE_SQUARE = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><rect x='20' y='20' width='160' height='160' fill='none' stroke='red' stroke-width='12' stroke-linejoin='round' /></svg>`;
+    const BADGE_LIVE = `data:image/svg+xml;utf8,<svg viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='180' height='80' rx='10' fill='red' /><text x='100' y='65' font-family='Arial' font-weight='bold' font-size='50' fill='white' text-anchor='middle'>LIVE</text></svg>`;
+
+    const SHAPE_BUTTONS = [
+        { name: 'Curved', src: ARROW_CURVED }, { name: 'Straight', src: ARROW_STRAIGHT }, { name: 'Pointer', src: ARROW_POINTER },
+        { name: 'Circle', src: SHAPE_CIRCLE }, { name: 'Square', src: SHAPE_SQUARE }, { name: 'Live', src: BADGE_LIVE }
+    ];
+
+    const state = {
+        image: null,
+        text: "WATCH THIS!", textColor: "#FFFFFF", fontFamily: "Anton", fontSize: 140, strokeWidth: 15, shadowBlur: 20, textPosition: 'center',
+        showSafeZone: true,
+        stickers: [], selectedStickerId: null, isDragging: false, dragOffset: { x: 0, y: 0 },
+        filters: { brightness: 100, contrast: 100, saturate: 100 }
+    };
+
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const btnDownload = document.getElementById('btnDownload');
+    const stickerControls = document.getElementById('stickerControls');
+    const noStickerSelected = document.getElementById('noStickerSelected');
+
+    function init() { renderUI(); setupEventListeners(); resizeCanvas(); drawCanvas(); }
+
+    function renderUI() {
+        document.getElementById('fontButtons').innerHTML = FONTS.map(font => `<button onclick="setFont('${font.value}')" class="text-sm py-2 px-1 rounded border transition-all ${state.fontFamily === font.value ? 'bg-gray-100 text-black border-white font-bold' : 'bg-gray-800 text-gray-400 border-gray-700'}" style="font-family: ${font.value}">${font.name}</button>`).join('');
+        document.getElementById('colorButtons').innerHTML = COLORS.map(color => `<button onclick="setColor('${color}')" class="w-6 h-6 rounded-full border-2 ${state.textColor === color ? 'border-white scale-110' : 'border-transparent'} shadow-sm" style="background-color: ${color}"></button>`).join('');
+        document.getElementById('layoutGrid').innerHTML = ['top-left', 'top-center', 'top-right', 'mid-left', 'center', 'mid-right', 'bottom-left', 'bottom-center', 'bottom-right'].map(pos => `<button onclick="setPosition('${pos}')" class="rounded hover:bg-gray-700 transition-colors border ${state.textPosition === pos ? 'bg-gray-700 border-white/50' : 'bg-gray-950 border-gray-800'} flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full ${state.textPosition === pos ? 'bg-red-500' : 'bg-gray-800'}"></div></button>`).join('');
+        document.getElementById('shapeButtons').innerHTML = SHAPE_BUTTONS.map((shape, idx) => `<button onclick="addShape(${idx})" class="w-12 h-12 bg-gray-800 rounded-lg hover:bg-gray-700 border border-gray-700 flex-shrink-0 flex items-center justify-center p-1 group"><img src="${shape.src}" class="w-full h-full object-contain group-hover:scale-110 transition-transform"></button>`).join('');
+        document.getElementById('emojiButtons').innerHTML = EMOJIS.map(emoji => `<button onclick="addSticker('emoji', '${emoji}')" class="text-2xl hover:bg-gray-800 rounded p-1 transition-transform hover:scale-125">${emoji}</button>`).join('');
+
+        document.getElementById('textContent').value = state.text;
+        document.getElementById('colorPicker').value = state.textColor;
+        document.getElementById('fontSize').value = state.fontSize;
+        document.getElementById('strokeWidth').value = state.strokeWidth;
+        
+        if (state.selectedStickerId) {
+            stickerControls.classList.remove('hidden');
+            noStickerSelected.classList.add('hidden');
+            const sticker = state.stickers.find(s => s.id === state.selectedStickerId);
+            if (sticker) {
+                document.getElementById('stickerScale').value = sticker.scale;
+                document.getElementById('stickerRotation').value = sticker.rotation;
+            }
+        } else {
+            stickerControls.classList.add('hidden');
+            noStickerSelected.classList.remove('hidden');
+        }
+
+        const btnSafe = document.getElementById('btnSafeZone');
+        btnSafe.textContent = state.showSafeZone ? 'Safe Zone ON' : 'Safe Zone OFF';
+        btnSafe.className = `text-[10px] px-2 py-0.5 rounded border ${state.showSafeZone ? 'bg-red-900/30 text-red-300 border-red-800' : 'bg-gray-800 text-gray-500 border-gray-700'}`;
+
+        if (state.image) {
+            btnDownload.disabled = false;
+            btnDownload.className = "flex items-center gap-2 px-8 py-3 rounded-full font-bold text-lg transition-all transform hover:scale-105 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-xl hover:shadow-red-900/40";
+        } else {
+            btnDownload.disabled = true;
+            btnDownload.className = "flex items-center gap-2 px-8 py-3 rounded-full font-bold text-lg transition-all transform hover:scale-105 bg-gray-700 text-gray-500 cursor-not-allowed";
+        }
+    }
+
+    function resizeCanvas() { canvas.width = 1280; canvas.height = 720; }
+
+    function drawCanvas() {
+        const width = canvas.width;
+        const height = canvas.height;
+        ctx.clearRect(0, 0, width, height);
+
+        if (state.image) {
+            const scale = Math.max(width / state.image.width, height / state.image.height);
+            const x = (width / 2) - (state.image.width / 2) * scale;
+            const y = (height / 2) - (state.image.height / 2) * scale;
+            
+            // APPLY FILTERS
+            ctx.filter = `brightness(${state.filters.brightness}%) contrast(${state.filters.contrast}%) saturate(${state.filters.saturate}%)`;
+            ctx.drawImage(state.image, x, y, state.image.width * scale, state.image.height * scale);
+            ctx.filter = 'none'; // Reset for stickers/text
+        } else {
+            ctx.fillStyle = '#1f2937'; ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#374151'; ctx.font = 'bold 40px Montserrat, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('Upload Image', width / 2, height / 2);
+        }
+
+        // DRAW STICKERS
+        state.stickers.forEach(sticker => {
+            ctx.save();
+            ctx.translate(sticker.x, sticker.y);
+            ctx.rotate((sticker.rotation * Math.PI) / 180);
+            ctx.scale(sticker.scaleX, 1); // Apply Flip
+            ctx.scale(sticker.scale, sticker.scale); // Apply Size
+
+            ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 15; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 5;
+
+            if (sticker.type === 'emoji') {
+                ctx.font = '100px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(sticker.content, 0, 0);
+            } else {
+                const img = new Image(); img.src = sticker.content;
+                ctx.drawImage(img, -100, -100, 200, 200);
+            }
+            ctx.restore();
+
+            if (sticker.id === state.selectedStickerId) {
+                ctx.save();
+                ctx.translate(sticker.x, sticker.y);
+                ctx.rotate((sticker.rotation * Math.PI) / 180);
+                // Box doesn't flip visual, just size
+                ctx.strokeStyle = '#00FFFF'; ctx.lineWidth = 4; ctx.setLineDash([10, 5]);
+                const boxSize = sticker.type === 'emoji' ? 120 * sticker.scale : 220 * sticker.scale;
+                ctx.strokeRect(-boxSize/2, -boxSize/2, boxSize, boxSize);
+                ctx.restore();
+            }
+        });
+
+        // SAFE ZONE
+        if (state.showSafeZone) {
+            ctx.save(); ctx.fillStyle = 'rgba(255, 0, 0, 0.3)'; ctx.strokeStyle = 'red'; ctx.setLineDash([10, 5]); ctx.lineWidth = 2;
+            const safeW = 180; const safeH = 60;
+            ctx.fillRect(width - safeW - 20, height - safeH - 20, safeW, safeH);
+            ctx.strokeRect(width - safeW - 20, height - safeH - 20, safeW, safeH);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText('TIMESTAMP', width - (safeW/2) - 20, height - (safeH/2) - 15);
+            ctx.restore();
+        }
+
+        // DRAW TEXT
+        if (state.text) {
+            ctx.font = `bold ${state.fontSize}px "${state.fontFamily}", sans-serif`;
+            let x = width / 2; let y = height / 2; let textAlign = 'center';
+            const padding = 60; const fontSize = parseInt(state.fontSize);
+
+            switch(state.textPosition) {
+                case 'top-left': x = padding; y = padding + (fontSize/2); textAlign = 'left'; break;
+                case 'top-center': x = width / 2; y = padding + (fontSize/2); textAlign = 'center'; break;
+                case 'top-right': x = width - padding; y = padding + (fontSize/2); textAlign = 'right'; break;
+                case 'mid-left': x = padding; y = height / 2; textAlign = 'left'; break;
+                case 'center': x = width / 2; y = height / 2; textAlign = 'center'; break;
+                case 'mid-right': x = width - padding; y = height / 2; textAlign = 'right'; break;
+                case 'bottom-left': x = padding; y = height - padding - (fontSize/2); textAlign = 'left'; break;
+                case 'bottom-center': x = width / 2; y = height - padding - (fontSize/2); textAlign = 'center'; break;
+                case 'bottom-right': x = width - padding; y = height - padding - (fontSize/2); textAlign = 'right'; break;
+            }
+            ctx.textAlign = textAlign; ctx.textBaseline = 'middle';
+            const lines = state.text.split('\n');
+            const lineHeight = fontSize * 1.1;
+            const totalHeight = (lines.length - 1) * lineHeight;
+            const startY = y - (totalHeight / 2);
+
+            lines.forEach((line, index) => {
+                const lineY = startY + (index * lineHeight);
+                if (state.shadowBlur > 0) {
+                    ctx.shadowColor = 'rgba(0,0,0,0.9)'; ctx.shadowBlur = state.shadowBlur; ctx.shadowOffsetX = state.shadowBlur / 3; ctx.shadowOffsetY = state.shadowBlur / 3;
+                } else { ctx.shadowColor = 'transparent'; }
+                if (state.strokeWidth > 0) {
+                    ctx.strokeStyle = 'black'; ctx.lineWidth = state.strokeWidth; ctx.lineJoin = 'round'; ctx.strokeText(line.toUpperCase(), x, lineY);
+                }
+                ctx.shadowColor = 'transparent'; ctx.fillStyle = state.textColor; ctx.fillText(line.toUpperCase(), x, lineY);
+            });
+        }
+    }
+
+    // --- EVENT HANDLERS ---
+    window.setFont = (font) => { state.fontFamily = font; renderUI(); drawCanvas(); };
+    window.setColor = (color) => { state.textColor = color; renderUI(); drawCanvas(); };
+    window.setPosition = (pos) => { state.textPosition = pos; renderUI(); drawCanvas(); };
+    window.addShape = (idx) => { addSticker('shape', SHAPE_BUTTONS[idx].src); };
+    window.addSticker = (type, content) => {
+        const newSticker = { id: Date.now().toString(), type, content, x: 640, y: 360, scale: 1, scaleX: 1, rotation: 0 };
+        state.stickers.push(newSticker); state.selectedStickerId = newSticker.id; renderUI(); drawCanvas();
+    };
+
+    function setupEventListeners() {
+        document.getElementById('imageInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image(); img.onload = () => { state.image = img; document.getElementById('previewThumb').src = img.src; document.getElementById('previewThumb').classList.remove('hidden'); renderUI(); drawCanvas(); }; img.src = event.target.result;
+                }; reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('textContent').addEventListener('input', (e) => { state.text = e.target.value; drawCanvas(); });
+        document.getElementById('colorPicker').addEventListener('input', (e) => { state.textColor = e.target.value; drawCanvas(); });
+        document.getElementById('fontSize').addEventListener('input', (e) => { state.fontSize = e.target.value; drawCanvas(); });
+        document.getElementById('strokeWidth').addEventListener('input', (e) => { state.strokeWidth = e.target.value; drawCanvas(); });
+        document.getElementById('btnSafeZone').addEventListener('click', () => { state.showSafeZone = !state.showSafeZone; renderUI(); drawCanvas(); });
+
+        // FILTERS
+        document.getElementById('filterBrightness').addEventListener('input', (e) => { state.filters.brightness = e.target.value; drawCanvas(); });
+        document.getElementById('filterContrast').addEventListener('input', (e) => { state.filters.contrast = e.target.value; drawCanvas(); });
+        document.getElementById('filterSaturate').addEventListener('input', (e) => { state.filters.saturate = e.target.value; drawCanvas(); });
+
+        // STICKER CONTROLS
+        document.getElementById('stickerScale').addEventListener('input', (e) => {
+            const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.scale = e.target.value; drawCanvas(); }
+        });
+        document.getElementById('stickerRotation').addEventListener('input', (e) => {
+            const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.rotation = e.target.value; drawCanvas(); }
+        });
+        document.getElementById('btnDeleteSticker').addEventListener('click', () => {
+            state.stickers = state.stickers.filter(s => s.id !== state.selectedStickerId); state.selectedStickerId = null; renderUI(); drawCanvas();
+        });
+        // NEW: FLIP
+        document.getElementById('btnFlipSticker').addEventListener('click', () => {
+             const s = state.stickers.find(x => x.id === state.selectedStickerId); 
+             if (s) { s.scaleX = s.scaleX * -1; drawCanvas(); }
+        });
+
+        document.getElementById('btnMagicRemix').addEventListener('click', () => {
+            state.fontFamily = FONTS[Math.floor(Math.random() * FONTS.length)].value;
+            state.textColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+            const positions = ['top-left', 'top-center', 'top-right', 'center', 'bottom-center'];
+            state.textPosition = positions[Math.floor(Math.random() * positions.length)];
+            state.strokeWidth = Math.floor(Math.random() * 20) + 10;
+            renderUI(); drawCanvas();
+        });
+
+        btnDownload.addEventListener('click', async () => {
+            if (!state.image) return;
+            const btn = document.getElementById('btnDownload');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `Saving...`;
+            const getBlob = (quality, type) => new Promise(resolve => canvas.toBlob(resolve, type, quality));
+            let blob = await getBlob(1, 'image/png');
+            let extension = 'png';
+            if (blob.size > 2 * 1024 * 1024) {
+                 extension = 'jpg'; let quality = 0.95;
+                 while (quality > 0.1) { blob = await getBlob(quality, 'image/jpeg'); if (blob.size < 2000000) break; quality -= 0.1; }
+                 document.getElementById('statusText').innerText = "Optimized (<2MB)"; document.getElementById('downloadStatus').classList.remove('hidden');
+            }
+            const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.download = `tube-thumb-${Date.now()}.${extension}`; link.href = url; link.click(); URL.revokeObjectURL(url);
+            setTimeout(() => { btn.innerHTML = originalText; document.getElementById('downloadStatus').classList.add('hidden'); }, 3000);
+        });
+
+        const getCanvasCoords = (e) => {
+            const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width / rect.width; const scaleY = canvas.height / rect.height;
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX; let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+        };
+        const handleStart = (e) => {
+            e.preventDefault(); const coords = getCanvasCoords(e);
+            for (let i = state.stickers.length - 1; i >= 0; i--) {
+                const s = state.stickers[i]; const dist = Math.hypot(s.x - coords.x, s.y - coords.y); const hitRadius = s.type === 'emoji' ? 60 * s.scale : 100 * s.scale;
+                if (dist < hitRadius) {
+                    state.selectedStickerId = s.id; state.isDragging = true; state.dragOffset = { x: coords.x - s.x, y: coords.y - s.y }; renderUI(); drawCanvas(); return;
+                }
+            }
+            state.selectedStickerId = null; renderUI(); drawCanvas();
+        };
+        const handleMove = (e) => {
+            if (!state.isDragging || !state.selectedStickerId) return; e.preventDefault(); const coords = getCanvasCoords(e);
+            const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.x = coords.x - state.dragOffset.x; s.y = coords.y - state.dragOffset.y; drawCanvas(); }
+        };
+        const handleEnd = () => { state.isDragging = false; };
+
+        canvas.addEventListener('mousedown', handleStart); canvas.addEventListener('mousemove', handleMove); canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
+        canvas.addEventListener('touchstart', handleStart); canvas.addEventListener('touchmove', handleMove); canvas.addEventListener('touchend', handleEnd);
+    }
+    document.fonts.ready.then(init);
+</script>
+</body>
+</html>
