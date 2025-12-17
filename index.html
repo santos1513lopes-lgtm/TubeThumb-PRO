@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TubeThumb PRO - Stable</title>
+    <title>TubeThumb PRO - v7.0 (Auto-Save)</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>▶️</text></svg>">
 
@@ -11,26 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Montserrat:wght@700;900&family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            background-color: #0f172a; 
-            color: #f3f4f6;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background-color: #0f172a; color: #f3f4f6; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .canvas-container {
-            background-image: 
-                linear-gradient(45deg, #1e293b 25%, transparent 25%), 
-                linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #1e293b 75%), 
-                linear-gradient(-45deg, transparent 75%, #1e293b 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-image: linear-gradient(45deg, #1e293b 25%, transparent 25%), linear-gradient(-45deg, #1e293b 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1e293b 75%), linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+            background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
         .toggle-checkbox:checked { right: 0; border-color: #22c55e; }
         .toggle-checkbox:checked + .toggle-label { background-color: #22c55e; }
@@ -42,23 +29,14 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="bg-gradient-to-br from-red-600 to-orange-600 p-2 rounded-xl shadow-lg shadow-red-500/20 transform hover:scale-105 transition-transform">
-                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <div>
-                    <h1 class="text-2xl font-black tracking-tighter italic text-white leading-none">TubeThumb</h1>
-                    <span class="text-[10px] font-bold text-red-500 tracking-widest uppercase">Professional Edition</span>
-                </div>
+                <div><h1 class="text-2xl font-black tracking-tighter italic text-white leading-none">TubeThumb</h1><span class="text-[10px] font-bold text-red-500 tracking-widest uppercase">Professional Edition v7</span></div>
             </div>
             <div class="flex gap-2">
-                <button id="btnResetApp" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all border border-gray-700 hover:border-gray-500">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg> Reset
-                </button>
-                <button id="btnMagicRemix" class="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-lg border border-white/10">
-                    <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> Magic Remix
-                </button>
+                <div id="saveIndicator" class="hidden md:flex items-center text-[10px] text-gray-500 font-bold uppercase tracking-wider mr-2"><span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Auto-Saved</div>
+                <button id="btnResetApp" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all border border-gray-700 hover:border-gray-500">Reset</button>
+                <button id="btnMagicRemix" class="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-lg border border-white/10">Magic Remix</button>
             </div>
         </div>
     </header>
@@ -66,15 +44,10 @@
     <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-4 space-y-4 h-full">
             <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
-                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-blue-500"></span> Source & Adjustments
-                </h2>
+                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Source & Adjustments</h2>
                 <label class="group relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-700 rounded-xl cursor-pointer hover:bg-gray-800 hover:border-blue-500 transition-all overflow-hidden bg-gray-900/50 mb-5">
                     <img id="previewThumb" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-20 transition-opacity hidden" />
-                    <div class="flex flex-col items-center justify-center z-10 text-gray-400 group-hover:text-blue-400 transition-colors">
-                        <svg class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        <span class="text-xs font-bold" id="uploadText">Click to Upload Image</span>
-                    </div>
+                    <div class="flex flex-col items-center justify-center z-10 text-gray-400 group-hover:text-blue-400 transition-colors"><span class="text-xs font-bold" id="uploadText">Click to Upload Image</span></div>
                     <input type="file" id="imageInput" class="hidden" accept="image/*" />
                 </label>
                 <div class="grid grid-cols-3 gap-4">
@@ -101,17 +74,14 @@
                     <div id="stickerControls" class="pt-4 border-t border-gray-700 hidden animate-fade-in">
                         <div class="flex justify-between items-center mb-3">
                              <span class="text-[10px] font-bold text-blue-400 uppercase flex items-center gap-1">Edit Selected</span>
-                             <div class="flex gap-2">
-                                 <button id="btnFlipSticker" class="bg-gray-700 hover:bg-gray-600 text-white text-[10px] px-3 py-1 rounded-full font-bold transition-colors">FLIP ↔</button>
-                                 <button id="btnDeleteSticker" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-full transition-colors"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>
-                             </div>
+                             <div class="flex gap-2"><button id="btnFlipSticker" class="bg-gray-700 hover:bg-gray-600 text-white text-[10px] px-3 py-1 rounded-full font-bold transition-colors">FLIP ↔</button><button id="btnDeleteSticker" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-full transition-colors"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button></div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Scale</label><input type="range" id="stickerScale" min="0.2" max="3" step="0.1" value="1" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
                             <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Rotate</label><input type="range" id="stickerRotation" min="-180" max="180" value="0" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
                         </div>
                     </div>
-                    <div id="noStickerSelected" class="text-xs text-gray-600 font-medium text-center py-2 border-t border-gray-800">Select an item on canvas to edit</div>
+                    <div id="noStickerSelected" class="text-xs text-gray-600 font-medium text-center py-2 border-t border-gray-800">Select an item to edit</div>
                 </div>
             </div>
 
@@ -135,6 +105,12 @@
                     <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"><input type="checkbox" name="toggle" id="borderToggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-600"/><label for="borderToggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-700 cursor-pointer"></label></div>
                 </div>
                 <div class="space-y-4">
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="setBorderType('solid')" id="btnBorderSolid" class="py-2 rounded border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 flex justify-center" title="Solid Box"><div class="w-4 h-4 border-2 border-current"></div></button>
+                        <button onclick="setBorderType('rounded')" id="btnBorderRounded" class="py-2 rounded border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 flex justify-center" title="Rounded"><div class="w-4 h-4 border-2 border-current rounded-md"></div></button>
+                        <button onclick="setBorderType('corners')" id="btnBorderCorners" class="py-2 rounded border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 flex justify-center" title="Corners Only"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 8V4h4 M20 8V4h-4 M4 16v4h4 M20 16v4h-4"/></svg></button>
+                        <button onclick="setBorderType('brackets')" id="btnBorderBrackets" class="py-2 rounded border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 flex justify-center" title="Brackets"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 4H4v16h4 M16 4h4v16h-4"/></svg></button>
+                    </div>
                     <div class="bg-gray-900 rounded-xl p-3 border border-gray-700 flex justify-between items-center"><span class="text-xs text-gray-400 font-bold">Border Color</span><input type="color" id="borderColorPicker" value="#FFFF00" class="w-8 h-8 rounded-full bg-transparent border-0 p-0 cursor-pointer hover:scale-110 transition-transform"></div>
                     <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Thickness</label><input type="range" id="borderThickness" min="5" max="50" value="20" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-orange-500"/></div>
                 </div>
@@ -153,17 +129,11 @@
             <div class="sticky top-28 space-y-6">
                 <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-700 bg-gray-900 canvas-container group">
                     <canvas id="mainCanvas" class="w-full h-full object-contain cursor-crosshair touch-none"></canvas>
-                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-medium text-white pointer-events-none border border-white/10">
-                        Scroll to Zoom BG • Drag items
-                    </div>
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-medium text-white pointer-events-none border border-white/10">Scroll to Zoom BG • Drag items</div>
                 </div>
                 <div class="flex flex-col items-center gap-3">
-                    <button id="btnDownload" class="flex items-center gap-3 px-10 py-4 rounded-full font-black text-xl tracking-wide transition-all transform hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-xl shadow-red-900/30 cursor-not-allowed grayscale opacity-50" disabled>
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4 4m4-4v12" /></svg> DOWNLOAD THUMBNAIL
-                    </button>
-                    <div id="downloadStatus" class="flex items-center gap-2 text-green-400 text-sm font-bold opacity-0 transition-opacity">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> <span id="statusText">Image saved successfully!</span>
-                    </div>
+                    <button id="btnDownload" class="flex items-center gap-3 px-10 py-4 rounded-full font-black text-xl tracking-wide transition-all transform hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-xl shadow-red-900/30 cursor-not-allowed grayscale opacity-50" disabled>DOWNLOAD THUMBNAIL</button>
+                    <div id="downloadStatus" class="flex items-center gap-2 text-green-400 text-sm font-bold opacity-0 transition-opacity"><span id="statusText">Image saved successfully!</span></div>
                 </div>
             </div>
         </div>
@@ -183,16 +153,10 @@
     ];
 
     const state = {
-        image: null,
-        // NEW: Background Transform State
-        bgTransform: { x: 0, y: 0, scale: 1 },
-        isDraggingBg: false,
-        
+        image: null, bgTransform: { x: 0, y: 0, scale: 1 }, isDraggingBg: false,
         text: "WATCH THIS!", textColor: "#FFFFFF", fontFamily: "Anton", fontSize: 140, strokeWidth: 15, shadowBlur: 20, 
-        textPosition: { x: 640, y: 360 },
-        isDraggingText: false,
-        showSafeZone: true,
-        border: { enabled: false, color: "#FFFF00", width: 20 },
+        textPosition: { x: 640, y: 360 }, isDraggingText: false, showSafeZone: true,
+        border: { enabled: false, color: "#FFFF00", width: 20, type: 'solid' },
         stickers: [], selectedStickerId: null, isDragging: false, dragOffset: { x: 0, y: 0 },
         filters: { brightness: 100, contrast: 100, saturate: 100 }
     };
@@ -203,7 +167,29 @@
     const stickerControls = document.getElementById('stickerControls');
     const noStickerSelected = document.getElementById('noStickerSelected');
 
-    function init() { renderUI(); setupEventListeners(); resizeCanvas(); drawCanvas(); }
+    function init() { loadFromLocal(); renderUI(); setupEventListeners(); resizeCanvas(); drawCanvas(); }
+
+    // --- AUTO-SAVE SYSTEM ---
+    function saveToLocal() {
+        const stateToSave = { ...state };
+        stateToSave.image = null; // Do not save the large image object to avoid storage limits
+        stateToSave.isDragging = false; 
+        stateToSave.isDraggingText = false;
+        stateToSave.isDraggingBg = false;
+        localStorage.setItem('tubethumb_v7_settings', JSON.stringify(stateToSave));
+    }
+
+    function loadFromLocal() {
+        const saved = localStorage.getItem('tubethumb_v7_settings');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                Object.assign(state, parsed);
+                state.image = null; // Ensure image is null initially
+            } catch(e) { console.error("Could not load save", e); }
+        }
+    }
+    // ------------------------
 
     function renderUI() {
         document.getElementById('fontButtons').innerHTML = FONTS.map(font => `<button onclick="setFont('${font.value}')" class="text-xs py-2 px-1 rounded-lg border transition-all ${state.fontFamily === font.value ? 'bg-white text-black border-white font-bold shadow-sm' : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-500'}" style="font-family: ${font.value}">${font.name}</button>`).join('');
@@ -223,70 +209,59 @@
         document.getElementById('borderToggle').checked = state.border.enabled;
         document.getElementById('borderColorPicker').value = state.border.color;
         document.getElementById('borderThickness').value = state.border.width;
-        // Zoom UI
         document.getElementById('imageZoom').value = state.bgTransform.scale;
         
-        if (state.selectedStickerId) {
-            stickerControls.classList.remove('hidden'); noStickerSelected.classList.add('hidden');
-            const sticker = state.stickers.find(s => s.id === state.selectedStickerId);
-            if (sticker) { document.getElementById('stickerScale').value = sticker.scale; document.getElementById('stickerRotation').value = sticker.rotation; }
-        } else { stickerControls.classList.add('hidden'); noStickerSelected.classList.remove('hidden'); }
+        const styles = ['solid', 'rounded', 'corners', 'brackets'];
+        styles.forEach(s => {
+            const btn = document.getElementById(`btnBorder${s.charAt(0).toUpperCase() + s.slice(1)}`);
+            if(state.border.type === s) { btn.classList.add('bg-gray-700', 'text-white', 'border-white/50'); btn.classList.remove('text-gray-400'); } 
+            else { btn.classList.remove('bg-gray-700', 'text-white', 'border-white/50'); btn.classList.add('text-gray-400'); }
+        });
+
+        if (state.selectedStickerId) { stickerControls.classList.remove('hidden'); noStickerSelected.classList.add('hidden'); const sticker = state.stickers.find(s => s.id === state.selectedStickerId); if (sticker) { document.getElementById('stickerScale').value = sticker.scale; document.getElementById('stickerRotation').value = sticker.rotation; } } 
+        else { stickerControls.classList.add('hidden'); noStickerSelected.classList.remove('hidden'); }
 
         const btnSafe = document.getElementById('btnSafeZone');
         btnSafe.className = `text-[10px] px-2 py-0.5 rounded border transition-colors ${state.showSafeZone ? 'bg-green-500/10 text-green-400 border-green-500/50' : 'border-gray-600 text-gray-400'}`;
 
-        if (state.image) {
-            btnDownload.disabled = false; btnDownload.classList.remove('grayscale', 'opacity-50', 'cursor-not-allowed'); document.getElementById('uploadText').innerText = "Click to Change Image";
-        } else { btnDownload.disabled = true; btnDownload.classList.add('grayscale', 'opacity-50', 'cursor-not-allowed'); }
+        if (state.image) { btnDownload.disabled = false; btnDownload.classList.remove('grayscale', 'opacity-50', 'cursor-not-allowed'); document.getElementById('uploadText').innerText = "Click to Change Image"; } 
+        else { btnDownload.disabled = true; btnDownload.classList.add('grayscale', 'opacity-50', 'cursor-not-allowed'); }
 
         document.getElementById('filterBrightness').value = state.filters.brightness;
         document.getElementById('filterContrast').value = state.filters.contrast;
         document.getElementById('filterSaturate').value = state.filters.saturate;
     }
 
-    function resizeCanvas() { canvas.width = 1280; canvas.height = 720; state.textPosition = { x: canvas.width / 2, y: canvas.height / 2 }; }
-
-    function getTextMetrics(text, font, size) {
-        ctx.save(); ctx.font = `900 ${size}px "${font}", sans-serif`;
-        const lines = text.split('\n'); let width = 0;
-        lines.forEach(line => { const w = ctx.measureText(line.toUpperCase()).width; if (w > width) width = w; });
-        const lineHeight = size * 1.1; const height = lines.length * lineHeight;
-        ctx.restore(); return { width, height, lineHeight };
-    }
+    function resizeCanvas() { canvas.width = 1280; canvas.height = 720; if(!state.image) state.textPosition = { x: canvas.width / 2, y: canvas.height / 2 }; }
+    function getTextMetrics(text, font, size) { ctx.save(); ctx.font = `900 ${size}px "${font}", sans-serif`; const lines = text.split('\n'); let width = 0; lines.forEach(line => { const w = ctx.measureText(line.toUpperCase()).width; if (w > width) width = w; }); const lineHeight = size * 1.1; const height = lines.length * lineHeight; ctx.restore(); return { width, height, lineHeight }; }
 
     function drawCanvas() {
         const width = canvas.width; const height = canvas.height;
         ctx.clearRect(0, 0, width, height);
 
-        // 1. Background Image with Pan & Zoom
         if (state.image) {
             ctx.save();
             const scale = Math.max(width / state.image.width, height / state.image.height) * state.bgTransform.scale;
             const x = (width / 2) - (state.image.width / 2) * scale + state.bgTransform.x;
             const y = (height / 2) - (state.image.height / 2) * scale + state.bgTransform.y;
-            
             ctx.filter = `brightness(${state.filters.brightness}%) contrast(${state.filters.contrast}%) saturate(${state.filters.saturate}%)`;
             ctx.drawImage(state.image, x, y, state.image.width * scale, state.image.height * scale);
-            ctx.filter = 'none';
-            ctx.restore();
+            ctx.filter = 'none'; ctx.restore();
         } else {
             ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, width, height); ctx.fillStyle = '#1e293b'; ctx.beginPath(); ctx.arc(width/2, height/2, 100, 0, Math.PI*2); ctx.fill(); ctx.fillStyle = '#475569'; ctx.font = 'bold 30px Montserrat'; ctx.textAlign = 'center'; ctx.fillText('Upload an Image to Start', width / 2, height / 2);
         }
 
-        // 2. Stickers
         state.stickers.forEach(sticker => {
-            ctx.save(); ctx.translate(sticker.x, sticker.y); ctx.rotate((sticker.rotation * Math.PI) / 180); ctx.scale(sticker.scaleX, 1); ctx.scale(sticker.scale, sticker.scale); 
-            ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 15; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 5;
+            ctx.save(); ctx.translate(sticker.x, sticker.y); ctx.rotate((sticker.rotation * Math.PI) / 180); ctx.scale(sticker.scaleX, 1); ctx.scale(sticker.scale, sticker.scale); ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 15; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 5;
             if (sticker.type === 'emoji') { ctx.font = '100px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(sticker.content, 0, 0); } 
             else { const img = new Image(); img.src = sticker.content; ctx.drawImage(img, -100, -100, 200, 200); }
             ctx.restore();
             if (sticker.id === state.selectedStickerId) { ctx.save(); ctx.translate(sticker.x, sticker.y); ctx.rotate((sticker.rotation * Math.PI) / 180); ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 4; ctx.setLineDash([10, 5]); const boxSize = sticker.type === 'emoji' ? 120 * sticker.scale : 220 * sticker.scale; ctx.strokeRect(-boxSize/2, -boxSize/2, boxSize, boxSize); ctx.restore(); }
         });
 
-        // 3. Text
         if (state.text) {
             ctx.save(); ctx.font = `900 ${state.fontSize}px "${state.fontFamily}", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            const lines = state.text.split('\n'); const lineHeight = parseInt(state.fontSize) * 1.1; const totalHeight = (lines.length - 1) * lineHeight; const startY = state.textPosition.y - (totalHeight / 2);
+            const lines = state.text.split('\n'); const lineHeight = parseInt(state.fontSize) * 1.1; const startY = state.textPosition.y - ((lines.length - 1) * lineHeight) / 2;
             lines.forEach((line, index) => {
                 const lineY = startY + (index * lineHeight);
                 if (state.shadowBlur > 0) { ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = state.shadowBlur; ctx.shadowOffsetX = 8; ctx.shadowOffsetY = 8; }
@@ -296,24 +271,37 @@
             ctx.restore();
         }
 
-        // 4. Border
         if (state.border.enabled) {
-            ctx.save(); ctx.strokeStyle = state.border.color; ctx.lineWidth = state.border.width; const inset = state.border.width / 2; ctx.strokeRect(inset, inset, width - state.border.width, height - state.border.width); ctx.restore();
+            ctx.save(); ctx.strokeStyle = state.border.color; ctx.lineWidth = state.border.width; ctx.lineCap = 'butt'; const inset = state.border.width / 2;
+            if (state.border.type === 'solid') { ctx.strokeRect(inset, inset, width - state.border.width, height - state.border.width); } 
+            else if (state.border.type === 'rounded') { const r = 40; ctx.beginPath(); ctx.moveTo(inset + r, inset); ctx.lineTo(width - inset - r, inset); ctx.quadraticCurveTo(width - inset, inset, width - inset, inset + r); ctx.lineTo(width - inset, height - inset - r); ctx.quadraticCurveTo(width - inset, height - inset, width - inset - r, height - inset); ctx.lineTo(inset + r, height - inset); ctx.quadraticCurveTo(inset, height - inset, inset, height - inset - r); ctx.lineTo(inset, inset + r); ctx.quadraticCurveTo(inset, inset, inset + r, inset); ctx.stroke(); }
+            else if (state.border.type === 'corners') { const cornerLen = 150; ctx.beginPath(); ctx.moveTo(inset, inset + cornerLen); ctx.lineTo(inset, inset); ctx.lineTo(inset + cornerLen, inset); ctx.moveTo(width - inset - cornerLen, inset); ctx.lineTo(width - inset, inset); ctx.lineTo(width - inset, inset + cornerLen); ctx.moveTo(width - inset, height - inset - cornerLen); ctx.lineTo(width - inset, height - inset); ctx.lineTo(width - inset - cornerLen, height - inset); ctx.moveTo(inset + cornerLen, height - inset); ctx.lineTo(inset, height - inset); ctx.lineTo(inset, height - inset - cornerLen); ctx.stroke(); }
+            else if (state.border.type === 'brackets') { const bLen = 100; ctx.beginPath(); ctx.moveTo(inset + bLen, inset); ctx.lineTo(inset, inset); ctx.lineTo(inset, height - inset); ctx.lineTo(inset + bLen, height - inset); ctx.moveTo(width - inset - bLen, inset); ctx.lineTo(width - inset, inset); ctx.lineTo(width - inset, height - inset); ctx.lineTo(width - inset - bLen, height - inset); ctx.stroke(); }
+            ctx.restore();
         }
 
-        // 5. Safe Zone
         if (state.showSafeZone) { ctx.save(); ctx.fillStyle = 'rgba(0, 0, 0, 0.6)'; const safeW = 180; const safeH = 60; ctx.fillRect(width - safeW - 20, height - safeH - 20, safeW, safeH); ctx.fillStyle = 'white'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText('TIMESTAMP', width - (safeW/2) - 20, height - (safeH/2) - 15); ctx.restore(); }
+        
+        // Trigger Save
+        saveToLocal();
     }
 
     // HANDLERS
     window.setFont = (font) => { state.fontFamily = font; renderUI(); drawCanvas(); };
     window.setColor = (color) => { state.textColor = color; renderUI(); drawCanvas(); };
+    window.setBorderType = (type) => { state.border.type = type; renderUI(); drawCanvas(); };
     window.setPresetPosition = (relX, relY) => { state.textPosition = { x: canvas.width * relX, y: canvas.height * relY }; renderUI(); drawCanvas(); };
     window.addShape = (idx) => { addSticker('shape', SHAPE_BUTTONS[idx].src); };
     window.addSticker = (type, content) => { const newSticker = { id: Date.now().toString(), type, content, x: 640, y: 360, scale: 1, scaleX: 1, rotation: 0 }; state.stickers.push(newSticker); state.selectedStickerId = newSticker.id; renderUI(); drawCanvas(); };
     window.resetImageTransform = () => { state.bgTransform = { x: 0, y: 0, scale: 1 }; renderUI(); drawCanvas(); };
 
-    function resetApp() { if(confirm("Reset all settings?")) { state.text = "WATCH THIS!"; state.textColor = "#FFFFFF"; state.fontFamily = "Anton"; state.fontSize = 140; state.strokeWidth = 15; state.shadowBlur = 20; state.textPosition = { x: 640, y: 360 }; state.showSafeZone = true; state.stickers = []; state.selectedStickerId = null; state.filters = { brightness: 100, contrast: 100, saturate: 100 }; state.border = { enabled: false, color: "#FFFF00", width: 20 }; state.bgTransform = { x: 0, y: 0, scale: 1 }; renderUI(); drawCanvas(); } }
+    function resetApp() { 
+        if(confirm("Reset all settings?")) { 
+            state.text = "WATCH THIS!"; state.textColor = "#FFFFFF"; state.fontFamily = "Anton"; state.fontSize = 140; state.strokeWidth = 15; state.shadowBlur = 20; state.textPosition = { x: 640, y: 360 }; state.showSafeZone = true; state.stickers = []; state.selectedStickerId = null; state.filters = { brightness: 100, contrast: 100, saturate: 100 }; state.border = { enabled: false, color: "#FFFF00", width: 20, type: 'solid' }; state.bgTransform = { x: 0, y: 0, scale: 1 }; 
+            localStorage.removeItem('tubethumb_v7_settings'); // Clear save
+            renderUI(); drawCanvas(); 
+        } 
+    }
 
     function setupEventListeners() {
         document.getElementById('imageInput').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (event) => { const img = new Image(); img.onload = () => { state.image = img; document.getElementById('previewThumb').src = img.src; document.getElementById('previewThumb').classList.remove('hidden'); window.resetImageTransform(); renderUI(); drawCanvas(); }; img.src = event.target.result; }; reader.readAsDataURL(file); } });
@@ -336,36 +324,26 @@
 
         document.getElementById('btnMagicRemix').addEventListener('click', () => {
             state.fontFamily = FONTS[Math.floor(Math.random() * FONTS.length)].value; state.textColor = COLORS[Math.floor(Math.random() * COLORS.length)]; state.textPosition.x = 200 + Math.random() * (canvas.width - 400); state.textPosition.y = 200 + Math.random() * (canvas.height - 400); state.strokeWidth = Math.floor(Math.random() * 20) + 10;
-            if (Math.random() > 0.5) { state.border.enabled = true; state.border.color = COLORS[Math.floor(Math.random() * COLORS.length)]; state.border.width = Math.floor(Math.random() * 30) + 10; } else { state.border.enabled = false; } renderUI(); drawCanvas();
+            if (Math.random() > 0.5) { state.border.enabled = true; state.border.color = COLORS[Math.floor(Math.random() * COLORS.length)]; state.border.width = Math.floor(Math.random() * 30) + 10; state.border.type = ['solid', 'rounded', 'corners', 'brackets'][Math.floor(Math.random()*4)]; } else { state.border.enabled = false; } renderUI(); drawCanvas();
         });
         document.getElementById('btnResetApp').addEventListener('click', resetApp);
         btnDownload.addEventListener('click', async () => { if (!state.image) return; const wasSafeZoneOn = state.showSafeZone; if (wasSafeZoneOn) { state.showSafeZone = false; drawCanvas(); } const btn = document.getElementById('btnDownload'); const originalText = btn.innerHTML; btn.innerHTML = `SAVING...`; const getBlob = (quality, type) => new Promise(resolve => canvas.toBlob(resolve, type, quality)); let blob = await getBlob(1, 'image/png'); let extension = 'png'; if (blob.size > 2 * 1024 * 1024) { extension = 'jpg'; let quality = 0.95; while (quality > 0.1) { blob = await getBlob(quality, 'image/jpeg'); if (blob.size < 2000000) break; quality -= 0.1; } } const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.download = `tubethumb-${Date.now()}.${extension}`; link.href = url; link.click(); URL.revokeObjectURL(url); document.getElementById('downloadStatus').classList.remove('opacity-0'); setTimeout(() => { btn.innerHTML = originalText; document.getElementById('downloadStatus').classList.add('opacity-0'); }, 3000); if (wasSafeZoneOn) { state.showSafeZone = true; drawCanvas(); } });
 
         const getCanvasCoords = (e) => { const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width / rect.width; const scaleY = canvas.height / rect.height; let clientX = e.touches ? e.touches[0].clientX : e.clientX; let clientY = e.touches ? e.touches[0].clientY : e.clientY; return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY }; };
 
-        // --- UPDATED INTERACTION LOGIC (LAYERS) ---
         const handleStart = (e) => {
             e.preventDefault(); const coords = getCanvasCoords(e); let hitFound = false;
-            
-            // 1. Stickers (Highest Priority)
             for (let i = state.stickers.length - 1; i >= 0; i--) {
                 const s = state.stickers[i]; const dist = Math.hypot(s.x - coords.x, s.y - coords.y); const hitRadius = s.type === 'emoji' ? 60 * s.scale : 100 * s.scale;
                 if (dist < hitRadius) { state.selectedStickerId = s.id; state.isDragging = true; state.dragOffset = { x: coords.x - s.x, y: coords.y - s.y }; hitFound = true; break; }
             }
-            // 2. Text
             if (!hitFound && state.text) {
                 const metrics = getTextMetrics(state.text, state.fontFamily, state.fontSize); const halfW = metrics.width / 2 + 20; const halfH = metrics.height / 2 + 20;
                 if (coords.x >= state.textPosition.x - halfW && coords.x <= state.textPosition.x + halfW && coords.y >= state.textPosition.y - halfH && coords.y <= state.textPosition.y + halfH) {
                     state.isDraggingText = true; state.dragOffset = { x: coords.x - state.textPosition.x, y: coords.y - state.textPosition.y }; state.selectedStickerId = null; hitFound = true;
                 }
             }
-            // 3. Background (Lowest Priority - if nothing else hit)
-            if (!hitFound && state.image) {
-                state.isDraggingBg = true;
-                state.dragOffset = { x: coords.x - state.bgTransform.x, y: coords.y - state.bgTransform.y };
-                state.selectedStickerId = null; // Clear selection
-            }
-
+            if (!hitFound && state.image) { state.isDraggingBg = true; state.dragOffset = { x: coords.x - state.bgTransform.x, y: coords.y - state.bgTransform.y }; state.selectedStickerId = null; }
             if (!hitFound && !state.isDraggingBg) { state.selectedStickerId = null; }
             renderUI(); drawCanvas();
         };
@@ -379,7 +357,6 @@
 
         const handleEnd = () => { state.isDragging = false; state.isDraggingText = false; state.isDraggingBg = false; };
         
-        // Mouse Wheel Zoom
         const handleWheel = (e) => {
             e.preventDefault();
             if (state.image) {
@@ -393,7 +370,7 @@
 
         canvas.addEventListener('mousedown', handleStart); canvas.addEventListener('mousemove', handleMove); canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
         canvas.addEventListener('touchstart', handleStart); canvas.addEventListener('touchmove', handleMove); canvas.addEventListener('touchend', handleEnd);
-        canvas.addEventListener('wheel', handleWheel); // Add zoom listener
+        canvas.addEventListener('wheel', handleWheel);
     }
     document.fonts.ready.then(init);
 </script>
