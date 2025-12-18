@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TubeThumb PRO - v7.0 (Auto-Save)</title>
+    <title>TubeThumb PRO - v7.3.1 (Multi-Text Fixed)</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>▶️</text></svg>">
 
@@ -31,7 +31,7 @@
                 <div class="bg-gradient-to-br from-red-600 to-orange-600 p-2 rounded-xl shadow-lg shadow-red-500/20 transform hover:scale-105 transition-transform">
                     <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <div><h1 class="text-2xl font-black tracking-tighter italic text-white leading-none">TubeThumb</h1><span class="text-[10px] font-bold text-red-500 tracking-widest uppercase">Professional Edition v7</span></div>
+                <div><h1 class="text-2xl font-black tracking-tighter italic text-white leading-none">TubeThumb</h1><span class="text-[10px] font-bold text-red-500 tracking-widest uppercase">PRO v7.3 Multi-Text</span></div>
             </div>
             <div class="flex gap-2">
                 <div id="saveIndicator" class="hidden md:flex items-center text-[10px] text-gray-500 font-bold uppercase tracking-wider mr-2"><span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Auto-Saved</div>
@@ -43,6 +43,7 @@
 
     <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-4 space-y-4 h-full">
+            
             <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
                 <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Source & Adjustments</h2>
                 <label class="group relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-700 rounded-xl cursor-pointer hover:bg-gray-800 hover:border-blue-500 transition-all overflow-hidden bg-gray-900/50 mb-5">
@@ -62,40 +63,59 @@
             </div>
 
             <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
-                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> Headline</h2>
-                <textarea id="textContent" class="w-full h-20 bg-gray-900 border-2 border-gray-700 rounded-xl px-4 py-3 text-lg font-black text-white focus:border-yellow-500 focus:outline-none resize-none placeholder-gray-600 transition-colors">WATCH THIS!</textarea>
-            </div>
-
-            <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
-                 <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500"></span> Stickers & Assets</h2>
-                <div class="space-y-5">
-                    <div><div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="shapeButtons"></div></div>
-                    <div><div class="grid grid-cols-6 gap-2" id="emojiButtons"></div></div>
-                    <div id="stickerControls" class="pt-4 border-t border-gray-700 hidden animate-fade-in">
-                        <div class="flex justify-between items-center mb-3">
-                             <span class="text-[10px] font-bold text-blue-400 uppercase flex items-center gap-1">Edit Selected</span>
-                             <div class="flex gap-2"><button id="btnFlipSticker" class="bg-gray-700 hover:bg-gray-600 text-white text-[10px] px-3 py-1 rounded-full font-bold transition-colors">FLIP ↔</button><button id="btnDeleteSticker" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-full transition-colors"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Scale</label><input type="range" id="stickerScale" min="0.2" max="3" step="0.1" value="1" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
-                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Rotate</label><input type="range" id="stickerRotation" min="-180" max="180" value="0" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
-                        </div>
-                    </div>
-                    <div id="noStickerSelected" class="text-xs text-gray-600 font-medium text-center py-2 border-t border-gray-800">Select an item to edit</div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> Text Layers</h2>
+                    <button id="btnAddText" class="text-xs bg-yellow-500 text-black font-bold px-3 py-1 rounded-full hover:bg-yellow-400 transition-colors">+ Add New Text</button>
                 </div>
-            </div>
+                
+                <div id="textControlsArea">
+                    <div class="mb-4">
+                        <div class="flex justify-between text-[10px] text-gray-500 uppercase font-bold mb-1">
+                            <span>Content</span>
+                            <button id="btnDeleteText" class="text-red-500 hover:text-white">Delete Layer</button>
+                        </div>
+                        <textarea id="textContent" class="w-full h-20 bg-gray-900 border-2 border-gray-700 rounded-xl px-4 py-3 text-lg font-black text-white focus:border-yellow-500 focus:outline-none resize-none placeholder-gray-600 transition-colors"></textarea>
+                    </div>
 
-            <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
-                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Typography Style</h2>
-                <div class="space-y-4">
-                   <div class="grid grid-cols-2 gap-2" id="fontButtons"></div>
-                   <div class="bg-gray-900 rounded-xl p-3 border border-gray-700 flex justify-between items-center">
-                        <div class="flex gap-2" id="colorButtons"></div><div class="w-px h-6 bg-gray-700 mx-2"></div><input type="color" id="colorPicker" value="#FFFFFF" class="w-8 h-8 rounded-full bg-transparent border-0 p-0 cursor-pointer hover:scale-110 transition-transform">
-                   </div>
-                   <div class="grid grid-cols-2 gap-4">
-                       <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Font Size</label><input type="range" id="fontSize" min="40" max="250" value="140" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-white"/></div>
-                       <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Outline</label><input type="range" id="strokeWidth" min="0" max="40" value="15" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-red-500"/></div>
-                   </div>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-2" id="fontButtons"></div>
+                        
+                        <div class="bg-gray-900 rounded-xl p-3 border border-gray-700">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs text-gray-400 font-bold">Gradient?</span>
+                                <div class="relative inline-block w-8 mr-2 align-middle select-none transition duration-200 ease-in"><input type="checkbox" name="toggle" id="gradientToggle" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-600"/><label for="gradientToggle" class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-700 cursor-pointer"></label></div>
+                            </div>
+                            <div id="solidColorControls" class="flex gap-2 items-center">
+                                <div class="flex gap-1 flex-1 justify-end" id="colorButtons"></div>
+                                <input type="color" id="colorPicker" class="w-6 h-6 rounded-full bg-transparent border-0 p-0 cursor-pointer hover:scale-110 transition-transform">
+                            </div>
+                            <div id="gradientControls" class="hidden space-y-2 mt-2 pt-2 border-t border-gray-800">
+                                <div class="flex justify-between items-center"><span class="text-[10px] text-gray-500 uppercase">Start</span><input type="color" id="gradStartColor" class="w-6 h-6 rounded-full bg-transparent border-0 p-0 cursor-pointer"></div>
+                                <div class="flex justify-between items-center"><span class="text-[10px] text-gray-500 uppercase">End</span><input type="color" id="gradEndColor" class="w-6 h-6 rounded-full bg-transparent border-0 p-0 cursor-pointer"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Size</label><input type="range" id="fontSize" min="40" max="350" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-white"/></div>
+                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Stroke</label><input type="range" id="strokeWidth" min="0" max="40" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-red-500"/></div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-gray-700 space-y-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-bold text-purple-400 uppercase flex items-center gap-1">Shadow</span>
+                                <div class="relative inline-block w-8 mr-2 align-middle select-none transition duration-200 ease-in"><input type="checkbox" name="toggle" id="shadowToggle" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-600"/><label for="shadowToggle" class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-700 cursor-pointer"></label></div>
+                            </div>
+                            <div class="bg-gray-900 rounded-xl p-3 border border-gray-700 flex justify-between items-center mb-2">
+                                <span class="text-xs text-gray-400 font-bold">FX Color</span><input type="color" id="shadowColorPicker" class="w-8 h-8 rounded-full bg-transparent border-0 p-0 cursor-pointer hover:scale-110 transition-transform">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Blur</label><input type="range" id="shadowBlur" min="0" max="100" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-purple-500"/></div>
+                                <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Distance</label><input type="range" id="shadowDistance" min="0" max="50" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-purple-500"/></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-2 aspect-[3/1.5]" id="layoutGrid"></div>
+                    </div>
                 </div>
             </div>
 
@@ -117,19 +137,33 @@
             </div>
 
             <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-colors">
-                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> Quick Layout</h2>
-                    <button id="btnSafeZone" class="text-[10px] px-2 py-0.5 rounded border border-gray-600 text-gray-400 hover:text-white transition-colors">Safe Zone</button>
-                 </div>
-                 <div class="grid grid-cols-3 gap-2 aspect-[3/1.5]" id="layoutGrid"></div>
+                 <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500"></span> Stickers & Assets</h2>
+                <div class="space-y-5">
+                    <div><div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="shapeButtons"></div></div>
+                    <div><div class="grid grid-cols-6 gap-2" id="emojiButtons"></div></div>
+                    <div id="stickerControls" class="pt-4 border-t border-gray-700 hidden animate-fade-in">
+                        <div class="flex justify-between items-center mb-3">
+                             <span class="text-[10px] font-bold text-blue-400 uppercase flex items-center gap-1">Edit Selected Sticker</span>
+                             <div class="flex gap-2"><button id="btnFlipSticker" class="bg-gray-700 hover:bg-gray-600 text-white text-[10px] px-3 py-1 rounded-full font-bold transition-colors">FLIP ↔</button><button id="btnDeleteSticker" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-full transition-colors"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Scale</label><input type="range" id="stickerScale" min="0.2" max="3" step="0.1" value="1" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
+                            <div class="space-y-1"><label class="text-[9px] font-bold text-gray-500 uppercase">Rotate</label><input type="range" id="stickerRotation" min="-180" max="180" value="0" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-blue-500"></div>
+                        </div>
+                    </div>
+                    <div id="noStickerSelected" class="text-xs text-gray-600 font-medium text-center py-2 border-t border-gray-800">Select an item to edit</div>
+                </div>
             </div>
         </div>
 
         <div class="lg:col-span-8">
             <div class="sticky top-28 space-y-6">
+                <div class="flex justify-between items-center mb-2">
+                    <button id="btnSafeZone" class="text-[10px] px-2 py-0.5 rounded border border-gray-600 text-gray-400 hover:text-white transition-colors">Toggle Safe Zone</button>
+                </div>
                 <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-700 bg-gray-900 canvas-container group">
                     <canvas id="mainCanvas" class="w-full h-full object-contain cursor-crosshair touch-none"></canvas>
-                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-medium text-white pointer-events-none border border-white/10">Scroll to Zoom BG • Drag items</div>
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-medium text-white pointer-events-none border border-white/10">Scroll: Zoom BG | Click Text to Edit</div>
                 </div>
                 <div class="flex flex-col items-center gap-3">
                     <button id="btnDownload" class="flex items-center gap-3 px-10 py-4 rounded-full font-black text-xl tracking-wide transition-all transform hover:scale-105 hover:-translate-y-1 bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-xl shadow-red-900/30 cursor-not-allowed grayscale opacity-50" disabled>DOWNLOAD THUMBNAIL</button>
@@ -152,10 +186,20 @@
         { name: 'Live', src: `data:image/svg+xml;utf8,<svg viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='180' height='80' rx='10' fill='red' /><text x='100' y='65' font-family='Arial' font-weight='bold' font-size='50' fill='white' text-anchor='middle'>LIVE</text></svg>` }
     ];
 
+    // --- STATE MANAGEMENT ---
+    const createTextObject = (id, content, yPos) => ({
+        id: id, content: content, x: 640, y: yPos,
+        color: "#FFFFFF", fontFamily: "Anton", fontSize: 140, strokeWidth: 15,
+        gradient: { enabled: false, start: "#FFFF00", end: "#FF0000" },
+        shadow: { enabled: true, color: "#000000", blur: 20, distance: 15 }
+    });
+
     const state = {
         image: null, bgTransform: { x: 0, y: 0, scale: 1 }, isDraggingBg: false,
-        text: "WATCH THIS!", textColor: "#FFFFFF", fontFamily: "Anton", fontSize: 140, strokeWidth: 15, shadowBlur: 20, 
-        textPosition: { x: 640, y: 360 }, isDraggingText: false, showSafeZone: true,
+        texts: [ createTextObject(1, "WATCH", 250), createTextObject(2, "THIS!", 450) ],
+        activeTextId: 1, 
+        isDraggingText: false, dragTextId: null,
+        showSafeZone: true,
         border: { enabled: false, color: "#FFFF00", width: 20, type: 'solid' },
         stickers: [], selectedStickerId: null, isDragging: false, dragOffset: { x: 0, y: 0 },
         filters: { brightness: 100, contrast: 100, saturate: 100 }
@@ -169,48 +213,58 @@
 
     function init() { loadFromLocal(); renderUI(); setupEventListeners(); resizeCanvas(); drawCanvas(); }
 
-    // --- AUTO-SAVE SYSTEM ---
     function saveToLocal() {
-        const stateToSave = { ...state };
-        stateToSave.image = null; // Do not save the large image object to avoid storage limits
-        stateToSave.isDragging = false; 
-        stateToSave.isDraggingText = false;
-        stateToSave.isDraggingBg = false;
-        localStorage.setItem('tubethumb_v7_settings', JSON.stringify(stateToSave));
+        const stateToSave = { ...state }; stateToSave.image = null; 
+        stateToSave.isDragging = false; stateToSave.isDraggingText = false; stateToSave.isDraggingBg = false;
+        localStorage.setItem('tubethumb_v73_settings', JSON.stringify(stateToSave));
     }
 
     function loadFromLocal() {
-        const saved = localStorage.getItem('tubethumb_v7_settings');
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                Object.assign(state, parsed);
-                state.image = null; // Ensure image is null initially
-            } catch(e) { console.error("Could not load save", e); }
+        const saved = localStorage.getItem('tubethumb_v73_settings');
+        if (saved) { 
+            try { 
+                const parsed = JSON.parse(saved); Object.assign(state, parsed); state.image = null; 
+            } catch(e) { console.error("Could not load save", e); } 
         }
     }
-    // ------------------------
+
+    const getActiveText = () => state.texts.find(t => t.id === state.activeTextId) || state.texts[0];
 
     function renderUI() {
-        document.getElementById('fontButtons').innerHTML = FONTS.map(font => `<button onclick="setFont('${font.value}')" class="text-xs py-2 px-1 rounded-lg border transition-all ${state.fontFamily === font.value ? 'bg-white text-black border-white font-bold shadow-sm' : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-500'}" style="font-family: ${font.value}">${font.name}</button>`).join('');
-        document.getElementById('colorButtons').innerHTML = COLORS.map(color => `<button onclick="setColor('${color}')" class="w-6 h-6 rounded-full border-2 ${state.textColor === color ? 'border-white scale-125 shadow-md' : 'border-transparent'} transition-transform" style="background-color: ${color}"></button>`).join('');
+        const activeText = getActiveText();
+        document.getElementById('textContent').value = activeText.content;
+        document.getElementById('fontButtons').innerHTML = FONTS.map(font => `<button onclick="updateActiveText('fontFamily', '${font.value}')" class="text-xs py-2 px-1 rounded-lg border transition-all ${activeText.fontFamily === font.value ? 'bg-white text-black border-white font-bold shadow-sm' : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-500'}" style="font-family: ${font.value}">${font.name}</button>`).join('');
+        document.getElementById('colorButtons').innerHTML = COLORS.map(color => `<button onclick="updateActiveText('color', '${color}')" class="w-6 h-6 rounded-full border-2 ${activeText.color === color ? 'border-white scale-125 shadow-md' : 'border-transparent'} transition-transform" style="background-color: ${color}"></button>`).join('');
         document.getElementById('layoutGrid').innerHTML = [
             {id:'top-left', x:0.1, y:0.15}, {id:'top-center', x:0.5, y:0.15}, {id:'top-right', x:0.9, y:0.15},
             {id:'mid-left', x:0.1, y:0.5}, {id:'center', x:0.5, y:0.5}, {id:'mid-right', x:0.9, y:0.5},
             {id:'bottom-left', x:0.1, y:0.85}, {id:'bottom-center', x:0.5, y:0.85}, {id:'bottom-right', x:0.9, y:0.85}
         ].map(pos => `<button onclick="setPresetPosition(${pos.x}, ${pos.y})" class="rounded hover:bg-gray-700 transition-colors border bg-gray-800/50 border-gray-700 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div></button>`).join('');
+
+        document.getElementById('colorPicker').value = activeText.color;
+        document.getElementById('fontSize').value = activeText.fontSize;
+        document.getElementById('strokeWidth').value = activeText.strokeWidth;
+        document.getElementById('gradientToggle').checked = activeText.gradient.enabled;
+        document.getElementById('gradStartColor').value = activeText.gradient.start;
+        document.getElementById('gradEndColor').value = activeText.gradient.end;
+        if(activeText.gradient.enabled) {
+            document.getElementById('gradientControls').classList.remove('hidden');
+            document.getElementById('solidColorControls').classList.add('opacity-50', 'pointer-events-none');
+        } else {
+            document.getElementById('gradientControls').classList.add('hidden');
+            document.getElementById('solidColorControls').classList.remove('opacity-50', 'pointer-events-none');
+        }
+        document.getElementById('shadowToggle').checked = activeText.shadow.enabled;
+        document.getElementById('shadowColorPicker').value = activeText.shadow.color;
+        document.getElementById('shadowBlur').value = activeText.shadow.blur;
+        document.getElementById('shadowDistance').value = activeText.shadow.distance;
+
         document.getElementById('shapeButtons').innerHTML = SHAPE_BUTTONS.map((shape, idx) => `<button onclick="addShape(${idx})" class="w-12 h-12 bg-gray-800 rounded-xl hover:bg-gray-700 border border-gray-700 flex-shrink-0 flex items-center justify-center p-2 group transition-all hover:scale-105"><img src="${shape.src}" class="w-full h-full object-contain"></button>`).join('');
         document.getElementById('emojiButtons').innerHTML = EMOJIS.map(emoji => `<button onclick="addSticker('emoji', '${emoji}')" class="text-2xl hover:bg-gray-800 rounded-lg p-1 transition-transform hover:scale-125">${emoji}</button>`).join('');
-
-        document.getElementById('textContent').value = state.text;
-        document.getElementById('colorPicker').value = state.textColor;
-        document.getElementById('fontSize').value = state.fontSize;
-        document.getElementById('strokeWidth').value = state.strokeWidth;
+        
         document.getElementById('borderToggle').checked = state.border.enabled;
         document.getElementById('borderColorPicker').value = state.border.color;
         document.getElementById('borderThickness').value = state.border.width;
-        document.getElementById('imageZoom').value = state.bgTransform.scale;
-        
         const styles = ['solid', 'rounded', 'corners', 'brackets'];
         styles.forEach(s => {
             const btn = document.getElementById(`btnBorder${s.charAt(0).toUpperCase() + s.slice(1)}`);
@@ -218,6 +272,8 @@
             else { btn.classList.remove('bg-gray-700', 'text-white', 'border-white/50'); btn.classList.add('text-gray-400'); }
         });
 
+        document.getElementById('imageZoom').value = state.bgTransform.scale;
+        
         if (state.selectedStickerId) { stickerControls.classList.remove('hidden'); noStickerSelected.classList.add('hidden'); const sticker = state.stickers.find(s => s.id === state.selectedStickerId); if (sticker) { document.getElementById('stickerScale').value = sticker.scale; document.getElementById('stickerRotation').value = sticker.rotation; } } 
         else { stickerControls.classList.add('hidden'); noStickerSelected.classList.remove('hidden'); }
 
@@ -232,7 +288,7 @@
         document.getElementById('filterSaturate').value = state.filters.saturate;
     }
 
-    function resizeCanvas() { canvas.width = 1280; canvas.height = 720; if(!state.image) state.textPosition = { x: canvas.width / 2, y: canvas.height / 2 }; }
+    function resizeCanvas() { canvas.width = 1280; canvas.height = 720; }
     function getTextMetrics(text, font, size) { ctx.save(); ctx.font = `900 ${size}px "${font}", sans-serif`; const lines = text.split('\n'); let width = 0; lines.forEach(line => { const w = ctx.measureText(line.toUpperCase()).width; if (w > width) width = w; }); const lineHeight = size * 1.1; const height = lines.length * lineHeight; ctx.restore(); return { width, height, lineHeight }; }
 
     function drawCanvas() {
@@ -259,17 +315,35 @@
             if (sticker.id === state.selectedStickerId) { ctx.save(); ctx.translate(sticker.x, sticker.y); ctx.rotate((sticker.rotation * Math.PI) / 180); ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 4; ctx.setLineDash([10, 5]); const boxSize = sticker.type === 'emoji' ? 120 * sticker.scale : 220 * sticker.scale; ctx.strokeRect(-boxSize/2, -boxSize/2, boxSize, boxSize); ctx.restore(); }
         });
 
-        if (state.text) {
-            ctx.save(); ctx.font = `900 ${state.fontSize}px "${state.fontFamily}", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            const lines = state.text.split('\n'); const lineHeight = parseInt(state.fontSize) * 1.1; const startY = state.textPosition.y - ((lines.length - 1) * lineHeight) / 2;
+        state.texts.forEach(textObj => {
+            ctx.save(); ctx.font = `900 ${textObj.fontSize}px "${textObj.fontFamily}", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const lines = textObj.content.split('\n'); const lineHeight = parseInt(textObj.fontSize) * 1.1; const startY = textObj.y - ((lines.length - 1) * lineHeight) / 2;
+            
+            if(textObj.shadow.enabled) {
+                ctx.shadowColor = textObj.shadow.color; ctx.shadowBlur = textObj.shadow.blur;
+                const dist = textObj.shadow.distance; ctx.shadowOffsetX = dist * 0.7; ctx.shadowOffsetY = dist * 0.7;
+            } else { ctx.shadowColor = 'transparent'; }
+
             lines.forEach((line, index) => {
                 const lineY = startY + (index * lineHeight);
-                if (state.shadowBlur > 0) { ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = state.shadowBlur; ctx.shadowOffsetX = 8; ctx.shadowOffsetY = 8; }
-                if (state.strokeWidth > 0) { ctx.strokeStyle = 'black'; ctx.lineWidth = state.strokeWidth; ctx.lineJoin = 'round'; ctx.strokeText(line.toUpperCase(), state.textPosition.x, lineY); }
-                ctx.fillStyle = state.textColor; ctx.fillText(line.toUpperCase(), state.textPosition.x, lineY);
+                if (textObj.strokeWidth > 0) { ctx.strokeStyle = 'black'; ctx.lineWidth = textObj.strokeWidth; ctx.lineJoin = 'round'; ctx.strokeText(line.toUpperCase(), textObj.x, lineY); }
+                if (textObj.gradient.enabled) {
+                    const gradient = ctx.createLinearGradient(0, lineY - parseInt(textObj.fontSize)/2, 0, lineY + parseInt(textObj.fontSize)/2);
+                    gradient.addColorStop(0, textObj.gradient.start); gradient.addColorStop(1, textObj.gradient.end);
+                    ctx.fillStyle = gradient;
+                } else { ctx.fillStyle = textObj.color; }
+                ctx.fillText(line.toUpperCase(), textObj.x, lineY);
             });
             ctx.restore();
-        }
+
+            if(textObj.id === state.activeTextId) {
+                const metrics = getTextMetrics(textObj.content, textObj.fontFamily, textObj.fontSize);
+                const halfW = metrics.width / 2 + 20; const halfH = metrics.height / 2 + 20;
+                ctx.save(); ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
+                ctx.strokeRect(textObj.x - halfW, textObj.y - halfH, halfW*2, halfH*2);
+                ctx.restore();
+            }
+        });
 
         if (state.border.enabled) {
             ctx.save(); ctx.strokeStyle = state.border.color; ctx.lineWidth = state.border.width; ctx.lineCap = 'butt'; const inset = state.border.width / 2;
@@ -279,55 +353,100 @@
             else if (state.border.type === 'brackets') { const bLen = 100; ctx.beginPath(); ctx.moveTo(inset + bLen, inset); ctx.lineTo(inset, inset); ctx.lineTo(inset, height - inset); ctx.lineTo(inset + bLen, height - inset); ctx.moveTo(width - inset - bLen, inset); ctx.lineTo(width - inset, inset); ctx.lineTo(width - inset, height - inset); ctx.lineTo(width - inset - bLen, height - inset); ctx.stroke(); }
             ctx.restore();
         }
-
         if (state.showSafeZone) { ctx.save(); ctx.fillStyle = 'rgba(0, 0, 0, 0.6)'; const safeW = 180; const safeH = 60; ctx.fillRect(width - safeW - 20, height - safeH - 20, safeW, safeH); ctx.fillStyle = 'white'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText('TIMESTAMP', width - (safeW/2) - 20, height - (safeH/2) - 15); ctx.restore(); }
-        
-        // Trigger Save
         saveToLocal();
     }
 
-    // HANDLERS
-    window.setFont = (font) => { state.fontFamily = font; renderUI(); drawCanvas(); };
-    window.setColor = (color) => { state.textColor = color; renderUI(); drawCanvas(); };
-    window.setBorderType = (type) => { state.border.type = type; renderUI(); drawCanvas(); };
-    window.setPresetPosition = (relX, relY) => { state.textPosition = { x: canvas.width * relX, y: canvas.height * relY }; renderUI(); drawCanvas(); };
+    // --- RE-INSERTED MISSING FUNCTION ---
+    function resetApp() { 
+        if(confirm("Reset all settings?")) { 
+            state.image = null;
+            state.bgTransform = { x: 0, y: 0, scale: 1 };
+            state.isDraggingBg = false;
+            // Reset to default two text layers
+            state.texts = [ createTextObject(1, "WATCH", 250), createTextObject(2, "THIS!", 450) ];
+            state.activeTextId = 1;
+            state.isDraggingText = false;
+            state.showSafeZone = true;
+            state.border = { enabled: false, color: "#FFFF00", width: 20, type: 'solid' };
+            state.stickers = [];
+            state.selectedStickerId = null;
+            state.filters = { brightness: 100, contrast: 100, saturate: 100 };
+            
+            localStorage.removeItem('tubethumb_v73_settings'); 
+            renderUI(); 
+            drawCanvas(); 
+        } 
+    }
+    // ------------------------------------
+
+    window.updateActiveText = (prop, value) => {
+        const text = state.texts.find(t => t.id === state.activeTextId);
+        if(text) { text[prop] = value; renderUI(); drawCanvas(); }
+    };
+    window.setPresetPosition = (relX, relY) => {
+        const text = state.texts.find(t => t.id === state.activeTextId);
+        if(text) { text.x = canvas.width * relX; text.y = canvas.height * relY; renderUI(); drawCanvas(); }
+    };
     window.addShape = (idx) => { addSticker('shape', SHAPE_BUTTONS[idx].src); };
     window.addSticker = (type, content) => { const newSticker = { id: Date.now().toString(), type, content, x: 640, y: 360, scale: 1, scaleX: 1, rotation: 0 }; state.stickers.push(newSticker); state.selectedStickerId = newSticker.id; renderUI(); drawCanvas(); };
     window.resetImageTransform = () => { state.bgTransform = { x: 0, y: 0, scale: 1 }; renderUI(); drawCanvas(); };
-
-    function resetApp() { 
-        if(confirm("Reset all settings?")) { 
-            state.text = "WATCH THIS!"; state.textColor = "#FFFFFF"; state.fontFamily = "Anton"; state.fontSize = 140; state.strokeWidth = 15; state.shadowBlur = 20; state.textPosition = { x: 640, y: 360 }; state.showSafeZone = true; state.stickers = []; state.selectedStickerId = null; state.filters = { brightness: 100, contrast: 100, saturate: 100 }; state.border = { enabled: false, color: "#FFFF00", width: 20, type: 'solid' }; state.bgTransform = { x: 0, y: 0, scale: 1 }; 
-            localStorage.removeItem('tubethumb_v7_settings'); // Clear save
-            renderUI(); drawCanvas(); 
-        } 
-    }
+    window.setBorderType = (type) => { state.border.type = type; renderUI(); drawCanvas(); };
 
     function setupEventListeners() {
         document.getElementById('imageInput').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (event) => { const img = new Image(); img.onload = () => { state.image = img; document.getElementById('previewThumb').src = img.src; document.getElementById('previewThumb').classList.remove('hidden'); window.resetImageTransform(); renderUI(); drawCanvas(); }; img.src = event.target.result; }; reader.readAsDataURL(file); } });
-        document.getElementById('textContent').addEventListener('input', (e) => { state.text = e.target.value; drawCanvas(); });
-        document.getElementById('colorPicker').addEventListener('input', (e) => { state.textColor = e.target.value; drawCanvas(); });
-        document.getElementById('fontSize').addEventListener('input', (e) => { state.fontSize = e.target.value; drawCanvas(); });
-        document.getElementById('strokeWidth').addEventListener('input', (e) => { state.strokeWidth = e.target.value; drawCanvas(); });
         document.getElementById('btnSafeZone').addEventListener('click', () => { state.showSafeZone = !state.showSafeZone; renderUI(); drawCanvas(); });
+        
+        document.getElementById('btnAddText').addEventListener('click', () => {
+            const newId = Date.now();
+            state.texts.push(createTextObject(newId, "NEW TEXT", 360));
+            state.activeTextId = newId;
+            renderUI(); drawCanvas();
+        });
+        document.getElementById('btnDeleteText').addEventListener('click', () => {
+            if(state.texts.length > 1) {
+                state.texts = state.texts.filter(t => t.id !== state.activeTextId);
+                state.activeTextId = state.texts[0].id;
+                renderUI(); drawCanvas();
+            } else { alert("You must have at least one text layer!"); }
+        });
+
+        document.getElementById('textContent').addEventListener('input', (e) => { updateActiveText('content', e.target.value); });
+        document.getElementById('colorPicker').addEventListener('input', (e) => { updateActiveText('color', e.target.value); });
+        document.getElementById('fontSize').addEventListener('input', (e) => { updateActiveText('fontSize', e.target.value); });
+        document.getElementById('strokeWidth').addEventListener('input', (e) => { updateActiveText('strokeWidth', e.target.value); });
+        
+        document.getElementById('gradientToggle').addEventListener('change', (e) => { const t = getActiveText(); t.gradient.enabled = e.target.checked; renderUI(); drawCanvas(); });
+        document.getElementById('gradStartColor').addEventListener('input', (e) => { const t = getActiveText(); t.gradient.start = e.target.value; renderUI(); drawCanvas(); });
+        document.getElementById('gradEndColor').addEventListener('input', (e) => { const t = getActiveText(); t.gradient.end = e.target.value; renderUI(); drawCanvas(); });
+        
+        document.getElementById('shadowToggle').addEventListener('change', (e) => { const t = getActiveText(); t.shadow.enabled = e.target.checked; renderUI(); drawCanvas(); });
+        document.getElementById('shadowColorPicker').addEventListener('input', (e) => { const t = getActiveText(); t.shadow.color = e.target.value; renderUI(); drawCanvas(); });
+        document.getElementById('shadowBlur').addEventListener('input', (e) => { const t = getActiveText(); t.shadow.blur = e.target.value; renderUI(); drawCanvas(); });
+        document.getElementById('shadowDistance').addEventListener('input', (e) => { const t = getActiveText(); t.shadow.distance = e.target.value; renderUI(); drawCanvas(); });
+
         document.getElementById('filterBrightness').addEventListener('input', (e) => { state.filters.brightness = e.target.value; drawCanvas(); });
         document.getElementById('filterContrast').addEventListener('input', (e) => { state.filters.contrast = e.target.value; drawCanvas(); });
         document.getElementById('filterSaturate').addEventListener('input', (e) => { state.filters.saturate = e.target.value; drawCanvas(); });
+        document.getElementById('imageZoom').addEventListener('input', (e) => { state.bgTransform.scale = parseFloat(e.target.value); drawCanvas(); });
+        document.getElementById('borderToggle').addEventListener('change', (e) => { state.border.enabled = e.target.checked; renderUI(); drawCanvas(); });
+        document.getElementById('borderColorPicker').addEventListener('input', (e) => { state.border.color = e.target.value; drawCanvas(); });
+        document.getElementById('borderThickness').addEventListener('input', (e) => { state.border.width = e.target.value; drawCanvas(); });
+
         document.getElementById('stickerScale').addEventListener('input', (e) => { const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.scale = e.target.value; drawCanvas(); } });
         document.getElementById('stickerRotation').addEventListener('input', (e) => { const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.rotation = e.target.value; drawCanvas(); } });
         document.getElementById('btnDeleteSticker').addEventListener('click', () => { state.stickers = state.stickers.filter(s => s.id !== state.selectedStickerId); state.selectedStickerId = null; renderUI(); drawCanvas(); });
         document.getElementById('btnFlipSticker').addEventListener('click', () => { const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.scaleX = s.scaleX * -1; drawCanvas(); } });
-        document.getElementById('borderToggle').addEventListener('change', (e) => { state.border.enabled = e.target.checked; renderUI(); drawCanvas(); });
-        document.getElementById('borderColorPicker').addEventListener('input', (e) => { state.border.color = e.target.value; drawCanvas(); });
-        document.getElementById('borderThickness').addEventListener('input', (e) => { state.border.width = e.target.value; drawCanvas(); });
-        document.getElementById('imageZoom').addEventListener('input', (e) => { state.bgTransform.scale = parseFloat(e.target.value); drawCanvas(); });
 
         document.getElementById('btnMagicRemix').addEventListener('click', () => {
-            state.fontFamily = FONTS[Math.floor(Math.random() * FONTS.length)].value; state.textColor = COLORS[Math.floor(Math.random() * COLORS.length)]; state.textPosition.x = 200 + Math.random() * (canvas.width - 400); state.textPosition.y = 200 + Math.random() * (canvas.height - 400); state.strokeWidth = Math.floor(Math.random() * 20) + 10;
-            if (Math.random() > 0.5) { state.border.enabled = true; state.border.color = COLORS[Math.floor(Math.random() * COLORS.length)]; state.border.width = Math.floor(Math.random() * 30) + 10; state.border.type = ['solid', 'rounded', 'corners', 'brackets'][Math.floor(Math.random()*4)]; } else { state.border.enabled = false; } renderUI(); drawCanvas();
+            const t = getActiveText();
+            t.fontFamily = FONTS[Math.floor(Math.random() * FONTS.length)].value; 
+            t.color = COLORS[Math.floor(Math.random() * COLORS.length)]; 
+            t.strokeWidth = Math.floor(Math.random() * 20) + 10;
+            renderUI(); drawCanvas();
         });
         document.getElementById('btnResetApp').addEventListener('click', resetApp);
-        btnDownload.addEventListener('click', async () => { if (!state.image) return; const wasSafeZoneOn = state.showSafeZone; if (wasSafeZoneOn) { state.showSafeZone = false; drawCanvas(); } const btn = document.getElementById('btnDownload'); const originalText = btn.innerHTML; btn.innerHTML = `SAVING...`; const getBlob = (quality, type) => new Promise(resolve => canvas.toBlob(resolve, type, quality)); let blob = await getBlob(1, 'image/png'); let extension = 'png'; if (blob.size > 2 * 1024 * 1024) { extension = 'jpg'; let quality = 0.95; while (quality > 0.1) { blob = await getBlob(quality, 'image/jpeg'); if (blob.size < 2000000) break; quality -= 0.1; } } const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.download = `tubethumb-${Date.now()}.${extension}`; link.href = url; link.click(); URL.revokeObjectURL(url); document.getElementById('downloadStatus').classList.remove('opacity-0'); setTimeout(() => { btn.innerHTML = originalText; document.getElementById('downloadStatus').classList.add('opacity-0'); }, 3000); if (wasSafeZoneOn) { state.showSafeZone = true; drawCanvas(); } });
+        btnDownload.addEventListener('click', async () => { if (!state.image) return; const wasSafeZoneOn = state.showSafeZone; if (wasSafeZoneOn) { state.showSafeZone = false; state.activeTextId = null; drawCanvas(); } const btn = document.getElementById('btnDownload'); const originalText = btn.innerHTML; btn.innerHTML = `SAVING...`; const getBlob = (quality, type) => new Promise(resolve => canvas.toBlob(resolve, type, quality)); let blob = await getBlob(1, 'image/png'); let extension = 'png'; if (blob.size > 2 * 1024 * 1024) { extension = 'jpg'; let quality = 0.95; while (quality > 0.1) { blob = await getBlob(quality, 'image/jpeg'); if (blob.size < 2000000) break; quality -= 0.1; } } const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.download = `tubethumb-${Date.now()}.${extension}`; link.href = url; link.click(); URL.revokeObjectURL(url); document.getElementById('downloadStatus').classList.remove('opacity-0'); setTimeout(() => { btn.innerHTML = originalText; document.getElementById('downloadStatus').classList.add('opacity-0'); }, 3000); if (wasSafeZoneOn) { state.showSafeZone = true; drawCanvas(); } });
 
         const getCanvasCoords = (e) => { const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width / rect.width; const scaleY = canvas.height / rect.height; let clientX = e.touches ? e.touches[0].clientX : e.clientX; let clientY = e.touches ? e.touches[0].clientY : e.clientY; return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY }; };
 
@@ -337,40 +456,41 @@
                 const s = state.stickers[i]; const dist = Math.hypot(s.x - coords.x, s.y - coords.y); const hitRadius = s.type === 'emoji' ? 60 * s.scale : 100 * s.scale;
                 if (dist < hitRadius) { state.selectedStickerId = s.id; state.isDragging = true; state.dragOffset = { x: coords.x - s.x, y: coords.y - s.y }; hitFound = true; break; }
             }
-            if (!hitFound && state.text) {
-                const metrics = getTextMetrics(state.text, state.fontFamily, state.fontSize); const halfW = metrics.width / 2 + 20; const halfH = metrics.height / 2 + 20;
-                if (coords.x >= state.textPosition.x - halfW && coords.x <= state.textPosition.x + halfW && coords.y >= state.textPosition.y - halfH && coords.y <= state.textPosition.y + halfH) {
-                    state.isDraggingText = true; state.dragOffset = { x: coords.x - state.textPosition.x, y: coords.y - state.textPosition.y }; state.selectedStickerId = null; hitFound = true;
+            if (!hitFound) {
+                for (let i = state.texts.length - 1; i >= 0; i--) {
+                    const text = state.texts[i];
+                    const metrics = getTextMetrics(text.content, text.fontFamily, text.fontSize);
+                    const halfW = metrics.width / 2 + 20; const halfH = metrics.height / 2 + 20;
+                    if (coords.x >= text.x - halfW && coords.x <= text.x + halfW && coords.y >= text.y - halfH && coords.y <= text.y + halfH) {
+                        state.activeTextId = text.id; 
+                        state.isDraggingText = true; state.dragTextId = text.id;
+                        state.dragOffset = { x: coords.x - text.x, y: coords.y - text.y };
+                        state.selectedStickerId = null; hitFound = true; 
+                        renderUI(); 
+                        break;
+                    }
                 }
             }
             if (!hitFound && state.image) { state.isDraggingBg = true; state.dragOffset = { x: coords.x - state.bgTransform.x, y: coords.y - state.bgTransform.y }; state.selectedStickerId = null; }
             if (!hitFound && !state.isDraggingBg) { state.selectedStickerId = null; }
-            renderUI(); drawCanvas();
+            drawCanvas();
         };
 
         const handleMove = (e) => {
             e.preventDefault(); const coords = getCanvasCoords(e);
             if (state.isDragging && state.selectedStickerId) { const s = state.stickers.find(x => x.id === state.selectedStickerId); if (s) { s.x = coords.x - state.dragOffset.x; s.y = coords.y - state.dragOffset.y; drawCanvas(); } } 
-            else if (state.isDraggingText) { state.textPosition.x = coords.x - state.dragOffset.x; state.textPosition.y = coords.y - state.dragOffset.y; drawCanvas(); }
+            else if (state.isDraggingText && state.dragTextId) { 
+                const t = state.texts.find(x => x.id === state.dragTextId);
+                if (t) { t.x = coords.x - state.dragOffset.x; t.y = coords.y - state.dragOffset.y; drawCanvas(); }
+            }
             else if (state.isDraggingBg) { state.bgTransform.x = coords.x - state.dragOffset.x; state.bgTransform.y = coords.y - state.dragOffset.y; drawCanvas(); }
         };
 
-        const handleEnd = () => { state.isDragging = false; state.isDraggingText = false; state.isDraggingBg = false; };
-        
-        const handleWheel = (e) => {
-            e.preventDefault();
-            if (state.image) {
-                const delta = e.deltaY > 0 ? -0.1 : 0.1;
-                let newScale = state.bgTransform.scale + delta;
-                newScale = Math.min(Math.max(0.1, newScale), 5); // Limit zoom 0.1x to 5x
-                state.bgTransform.scale = newScale;
-                renderUI(); drawCanvas();
-            }
-        };
+        const handleEnd = () => { state.isDragging = false; state.isDraggingText = false; state.isDraggingBg = false; state.dragTextId = null; };
+        const handleWheel = (e) => { e.preventDefault(); if (state.image) { const delta = e.deltaY > 0 ? -0.1 : 0.1; let newScale = state.bgTransform.scale + delta; newScale = Math.min(Math.max(0.1, newScale), 5); state.bgTransform.scale = newScale; renderUI(); drawCanvas(); } };
 
         canvas.addEventListener('mousedown', handleStart); canvas.addEventListener('mousemove', handleMove); canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
-        canvas.addEventListener('touchstart', handleStart); canvas.addEventListener('touchmove', handleMove); canvas.addEventListener('touchend', handleEnd);
-        canvas.addEventListener('wheel', handleWheel);
+        canvas.addEventListener('touchstart', handleStart); canvas.addEventListener('touchmove', handleMove); canvas.addEventListener('touchend', handleEnd); canvas.addEventListener('wheel', handleWheel);
     }
     document.fonts.ready.then(init);
 </script>
